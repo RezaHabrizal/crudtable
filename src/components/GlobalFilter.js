@@ -7,7 +7,7 @@ export const GlobalFilter = ({ filter, setFilter }) => {
 			<input
 				type="text"
 				placeholder="keyword here..."
-				className="focus:outline-none focus:ring focus:border-blue-300 mt-2"
+				className="focus:outline-none focus:ring focus:border-blue-300 ml-1"
 				value={filter || ""}
 				onChange={(e) => setFilter(e.target.value)}
 			/>

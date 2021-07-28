@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { deleteProduct } from "../store/actions"
 import { EditableCell } from "./EditAbleCell"
 import { GlobalFilter } from "./GlobalFilter"
+import Swal from "sweetalert2"
 
 export default function PaginationTable() {
 	const dataProducts = useSelector((state) => state.products)
@@ -36,6 +37,22 @@ export default function PaginationTable() {
 
 	const defaultColumn = {
 		Cell: EditableCell
+	}
+
+	const goDelete = (namaBarang) => {
+		Swal.fire({
+			title: "Are you sure?",
+			text: "You won't be able to revert this!",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#3085d6",
+			cancelButtonColor: "#d33",
+			confirmButtonText: "Yes, delete it!"
+		}).then((result) => {
+			if (result.isConfirmed) {
+				dispatch(deleteProduct(namaBarang))
+			}
+		})
 	}
 
 	const COLUMNS = [
@@ -79,9 +96,7 @@ export default function PaginationTable() {
 						<button
 							className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
 							type="button"
-							onClick={() =>
-								dispatch(deleteProduct(tableProps.row.original.namaBarang))
-							}
+							onClick={() => goDelete(tableProps.row.original.namaBarang)}
 						>
 							DELETE
 						</button>
