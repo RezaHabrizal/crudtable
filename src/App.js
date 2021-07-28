@@ -1,5 +1,5 @@
 import "./App.css"
-import React, { useEffect } from "react"
+import React from "react"
 import TableProduct from "./components/TableProduct"
 import AddProductModal from "./components/Modal"
 

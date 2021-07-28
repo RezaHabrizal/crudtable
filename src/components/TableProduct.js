@@ -1,8 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react"
-import { useTable, usePagination } from "react-table"
+import { useTable, usePagination, useGlobalFilter } from "react-table"
 import { useSelector, useDispatch } from "react-redux"
 import { deleteProduct } from "../store/actions"
 import { EditableCell } from "./EditAbleCell"
+import { GlobalFilter } from "./GlobalFilter"
 
 export default function PaginationTable() {
 	const dataProducts = useSelector((state) => state.products)
@@ -100,6 +101,7 @@ export default function PaginationTable() {
 			autoResetPage: !skipPageReset,
 			updateMyData
 		},
+		useGlobalFilter,
 		usePagination
 	)
 
@@ -113,8 +115,12 @@ export default function PaginationTable() {
 		canNextPage,
 		canPreviousPage,
 		setPageSize,
-		prepareRow
+		prepareRow,
+		state,
+		setGlobalFilter
 	} = tableInstance
+
+	const { globalFilter } = state
 
 	useEffect(() => {
 		setPageSize(3)
@@ -122,6 +128,7 @@ export default function PaginationTable() {
 
 	return (
 		<>
+			<GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
 			<div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto">
 				<div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
 					<table className="min-w-full leading-normal" {...getTableProps()}>
